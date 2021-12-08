@@ -3,24 +3,22 @@ import { Row, Col } from "react-bootstrap";
 import BlogItem from "../blog-item";
 /* import posts from "../../../data/posts.json"; */
 export default class BlogList extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      blogs : []
+      blogs: [],
     };
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/blogPosts")
-    .then(res => res.json())
-    .then(result => {
-      this.setState({
-        blogs: result
+    fetch(`${process.env.REACT_APP_BE_URL}/blogs`)
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          blogs: result,
+        });
       });
-    })
   }
-
 
   render() {
     const { blogs } = this.state;
@@ -35,7 +33,7 @@ export default class BlogList extends Component {
           <Col md={4} style={{ marginBottom: 50 }}>
             <BlogItem key={blogs.title} {...blog} />
           </Col>
-        ))} 
+        ))}
       </Row>
     );
   }
